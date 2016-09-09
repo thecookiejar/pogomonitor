@@ -56,6 +56,7 @@
     <Compile Include="GPX.cs" />
     <Compile Include="GymGPX.cs" />
     <Compile Include="IPokeAPI.cs" />
+    <Compile Include="IVScanner.cs" />
     <Compile Include="Pokemon.cs" />
     <Compile Include="SGPokemapAPI.cs" />
     <Compile Include="PokeRadarAPI.cs" />

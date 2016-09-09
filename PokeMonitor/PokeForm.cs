@@ -260,8 +260,8 @@ namespace PokeMonitor
 
         private void btnGPX_Click(object sender, EventArgs e)
         {
-            GymGPX.GenerateGymGPX();
-
+            IVScanner.CheckIV(129);
+            //GymGPX.GenerateGymGPX();
             //SplitGPX.Run();
             //generateDirectGPX();
         }
