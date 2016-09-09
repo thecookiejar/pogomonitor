@@ -42,9 +42,9 @@
             // 
             // bnMain
             // 
-            this.bnMain.Location = new System.Drawing.Point(1323, 22);
+            this.bnMain.Location = new System.Drawing.Point(1219, 22);
             this.bnMain.Name = "bnMain";
-            this.bnMain.Size = new System.Drawing.Size(166, 28);
+            this.bnMain.Size = new System.Drawing.Size(366, 28);
             this.bnMain.TabIndex = 0;
             this.bnMain.Text = "Start";
             this.bnMain.UseVisualStyleBackColor = true;
@@ -55,27 +55,28 @@
             this.listSpawns.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listSpawns.FormattingEnabled = true;
             this.listSpawns.ItemHeight = 16;
-            this.listSpawns.Location = new System.Drawing.Point(1323, 56);
+            this.listSpawns.Location = new System.Drawing.Point(1219, 56);
             this.listSpawns.Name = "listSpawns";
-            this.listSpawns.Size = new System.Drawing.Size(166, 260);
+            this.listSpawns.Size = new System.Drawing.Size(366, 260);
             this.listSpawns.TabIndex = 1;
             this.listSpawns.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pokeList_MouseClick);
+            this.listSpawns.Enter += new System.EventHandler(this.listSpawns_Enter);
             this.listSpawns.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pokeList_MouseDoubleClick);
             // 
             // btnReset
             // 
             this.btnReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReset.Location = new System.Drawing.Point(-221, 1);
+            this.btnReset.Location = new System.Drawing.Point(-116, 1);
             this.btnReset.MinimumSize = new System.Drawing.Size(20, 20);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(1538, 772);
+            this.btnReset.Size = new System.Drawing.Size(1329, 772);
             this.btnReset.TabIndex = 2;
             // 
             // bnReset
             // 
-            this.bnReset.Location = new System.Drawing.Point(1323, 346);
+            this.bnReset.Location = new System.Drawing.Point(1219, 346);
             this.bnReset.Name = "bnReset";
-            this.bnReset.Size = new System.Drawing.Size(51, 29);
+            this.bnReset.Size = new System.Drawing.Size(101, 29);
             this.bnReset.TabIndex = 5;
             this.bnReset.Text = "Reset";
             this.bnReset.UseVisualStyleBackColor = true;
@@ -85,9 +86,9 @@
             // 
             this.listPokedex.CheckOnClick = true;
             this.listPokedex.FormattingEnabled = true;
-            this.listPokedex.Location = new System.Drawing.Point(1323, 379);
+            this.listPokedex.Location = new System.Drawing.Point(1219, 379);
             this.listPokedex.Name = "listPokedex";
-            this.listPokedex.Size = new System.Drawing.Size(166, 349);
+            this.listPokedex.Size = new System.Drawing.Size(366, 349);
             this.listPokedex.TabIndex = 6;
             this.listPokedex.SelectedIndexChanged += new System.EventHandler(this.listPokedex_SelectedIndexChanged);
             // 
@@ -95,16 +96,16 @@
             // 
             this.lblProgress.BackColor = System.Drawing.SystemColors.ControlDark;
             this.lblProgress.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblProgress.Location = new System.Drawing.Point(1323, 319);
+            this.lblProgress.Location = new System.Drawing.Point(1219, 319);
             this.lblProgress.Name = "lblProgress";
-            this.lblProgress.Size = new System.Drawing.Size(166, 23);
+            this.lblProgress.Size = new System.Drawing.Size(366, 23);
             this.lblProgress.TabIndex = 7;
             // 
             // bnClear
             // 
-            this.bnClear.Location = new System.Drawing.Point(1437, 346);
+            this.bnClear.Location = new System.Drawing.Point(1421, 346);
             this.bnClear.Name = "bnClear";
-            this.bnClear.Size = new System.Drawing.Size(52, 29);
+            this.bnClear.Size = new System.Drawing.Size(68, 29);
             this.bnClear.TabIndex = 8;
             this.bnClear.Text = "Clear";
             this.bnClear.UseVisualStyleBackColor = true;
@@ -112,9 +113,9 @@
             // 
             // bnMissing
             // 
-            this.bnMissing.Location = new System.Drawing.Point(1380, 346);
+            this.bnMissing.Location = new System.Drawing.Point(1326, 346);
             this.bnMissing.Name = "bnMissing";
-            this.bnMissing.Size = new System.Drawing.Size(51, 29);
+            this.bnMissing.Size = new System.Drawing.Size(89, 29);
             this.bnMissing.TabIndex = 9;
             this.bnMissing.Text = "Missing";
             this.bnMissing.UseVisualStyleBackColor = true;
@@ -133,7 +134,7 @@
             // cbxNotification
             // 
             this.cbxNotification.AutoSize = true;
-            this.cbxNotification.Location = new System.Drawing.Point(1323, 1);
+            this.cbxNotification.Location = new System.Drawing.Point(1219, 1);
             this.cbxNotification.Name = "cbxNotification";
             this.cbxNotification.Size = new System.Drawing.Size(115, 17);
             this.cbxNotification.TabIndex = 11;
@@ -145,7 +146,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1492, 785);
+            this.ClientSize = new System.Drawing.Size(1597, 785);
             this.Controls.Add(this.cbxNotification);
             this.Controls.Add(this.btnGPX);
             this.Controls.Add(this.bnMissing);

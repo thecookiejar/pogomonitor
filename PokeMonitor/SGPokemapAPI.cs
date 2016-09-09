@@ -148,7 +148,7 @@ namespace PokeMonitor
         public static string Displayer(Spawn spawn)
         {
             Pokemon poke = (Pokemon)Enum.ToObject(typeof(Pokemon), spawn.pokemonId);
-            return poke.ToString() + " (" + spawn.TimeLeft() + ") ";
+            return poke.ToString() + " (" + spawn.TimeLeft() + ") " + spawn.ivs + " " + spawn.moves;
         }
         
     }

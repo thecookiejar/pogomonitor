@@ -58,6 +58,8 @@
     <Compile Include="IPokeAPI.cs" />
     <Compile Include="IVScanner.cs" />
     <Compile Include="Pokemon.cs" />
+    <Compile Include="PokeMoves.cs" />
+    <Compile Include="Pokestats.cs" />
     <Compile Include="SGPokemapAPI.cs" />
     <Compile Include="PokeRadarAPI.cs" />
     <Compile Include="PokeForm.cs">

@@ -20,6 +20,18 @@ namespace PokeMonitor
 
         private bool despawned;
 
+        public string ivs = "";
+        public void SetIVs(string ivs)
+        {
+            this.ivs = ivs;
+        }
+
+        public string moves = "";
+        public void SetMoves(string moves)
+        {
+            this.moves = moves.ToLower();
+        }
+
         private static readonly TimeSpan ONE_SECOND = new TimeSpan(0, 0, 0, 1);
 
         public bool isDespawned()
@@ -87,12 +99,14 @@ namespace PokeMonitor
             if (!enabled || notified) return;
 
             Pokemon poke = (Pokemon)Enum.Parse(typeof(Pokemon), pokemonId.ToString());
+
+
             if (poke == Pokemon.Dragonite ||
-                poke == Pokemon.Lapras ||
-                poke == Pokemon.Snorlax ||
-                poke == Pokemon.Charizard ||
-                poke == Pokemon.Arcanine ||
-                poke == Pokemon.Poliwrath)
+            poke == Pokemon.Lapras ||
+            poke == Pokemon.Snorlax ||
+            poke == Pokemon.Charizard ||
+            poke == Pokemon.Arcanine ||
+            poke == Pokemon.Poliwrath)
             {
                 //DateTime now = DateTime.Now;
                 //if (now.Subtract(lastNotify) > ONE_MINUTE)
@@ -104,7 +118,8 @@ namespace PokeMonitor
 
                 Utils.Speak(poke.ToString());
                 notified = true;
-            }
+            } 
+            IVScannerPool.AddIVTask(this);
         }
 
         // Default comparer for Part type.

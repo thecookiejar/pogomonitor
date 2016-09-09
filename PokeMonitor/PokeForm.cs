@@ -17,20 +17,21 @@ namespace PokeMonitor
         {
             Pokemon.Snorlax,
             Pokemon.Dragonite,
-            //Pokemon.Charizard,
-            //Pokemon.Venusaur,
-            //Pokemon.Blastoise,
+            Pokemon.Charizard,
+            Pokemon.Venusaur,
+            Pokemon.Blastoise,
             Pokemon.Exeggutor,
             Pokemon.Lapras,
 
             Pokemon.Poliwrath,
             Pokemon.Arcanine,
-            //Pokemon.Slowbro,
-            //Pokemon.Cloyster,
 
             Pokemon.Flareon,
             Pokemon.Vaporeon,
             Pokemon.Jolteon,
+
+            Pokemon.Gengar,
+            Pokemon.Gyarados,
 
         };
 
@@ -260,7 +261,7 @@ namespace PokeMonitor
 
         private void btnGPX_Click(object sender, EventArgs e)
         {
-            IVScanner.CheckIV(129);
+            //IVScanner.CheckIV();
             //GymGPX.GenerateGymGPX();
             //SplitGPX.Run();
             //generateDirectGPX();
@@ -269,6 +270,11 @@ namespace PokeMonitor
         private void cbxNotification_CheckedChanged(object sender, EventArgs e)
         {
             enableNotification = cbxNotification.Checked;
+        }
+
+        private void listSpawns_Enter(object sender, EventArgs e)
+        {
+            //MessageBox.Show("hello");
         }
 
         //private static readonly string[] delims = { "!4d" };

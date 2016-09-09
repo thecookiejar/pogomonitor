@@ -1,31 +1,60 @@
 ﻿using System;
-using System;
+using System.Threading;
 using System.Diagnostics;
 
+using System.Collections.Generic;
 
 namespace PokeMonitor
 {
-    static class IVScanner
+    public class IVScannerPool
     {
-        private static string getArguments(int pokeId)
+        static IVScannerPool()
         {
-            return @"del pogom.db & python runserver.py -a ptc -u Papakinn -p password88 -l ""1.263588,103.8223501"" -st 1 -sd 10 -ld 10 -ns -dc -ng -nk -k dummygoogle -j -iv " + pokeId.ToString();
+            ThreadPool.SetMaxThreads(1, 1);
         }
-        public static void CheckIV(int pokeId)
-        {
 
-            ProcessStartInfo cmdStartInfo = new ProcessStartInfo();
-            cmdStartInfo.FileName = @"C:\Windows\System32\cmd.exe";
-            cmdStartInfo.WorkingDirectory = @"E:\gitspace\Pokemon\PokeIVScanner\";
-            cmdStartInfo.RedirectStandardOutput = true;
-            cmdStartInfo.RedirectStandardError = true;
-            //cmdStartInfo.RedirectStandardInput = true;
-            cmdStartInfo.UseShellExecute = false;
-            cmdStartInfo.CreateNoWindow = true;
-            cmdStartInfo.Arguments = "/c " + getArguments(pokeId);
-            
+        private static readonly List<IVScanner> manager = new List<IVScanner>();
+
+        public static void AddIVTask(Spawn spawn)
+        {
+            manager.Add(new IVScanner(spawn));
+
+            if (manager.Count == 1)
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadProc), manager[0]);
+            }
+
+        }
+
+        // Wrapper method for use with thread pool.
+        static void ThreadProc(Object stateInfo)
+        {
+            IVScanner scanner = (IVScanner)stateInfo;
+            scanner.CheckIV();
+            Thread.Sleep(1000);
+            manager.Remove(scanner);
+            if (manager.Count > 0)
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadProc), manager[0]);
+            }
+
+        }
+    }
+
+    class IVScanner
+    {   
+        private ManualResetEvent doneEvent;
+        private Spawn spawn;
+
+        public IVScanner(Spawn spawn)
+        {
+            this.spawn = spawn;
+        }
+
+        public void CheckIV()
+        {
             Process cmdProcess = new Process();
-            cmdProcess.StartInfo = cmdStartInfo;
+            cmdProcess.StartInfo = getStartInfo(getArguments(spawn.pokemonId, spawn.latitude, spawn.longitude));
             cmdProcess.ErrorDataReceived += cmd_Error;
             cmdProcess.OutputDataReceived += cmd_DataReceived;
             cmdProcess.EnableRaisingEvents = true;
@@ -36,17 +65,69 @@ namespace PokeMonitor
             cmdProcess.WaitForExit();
         }
         
-        static void cmd_DataReceived(object sender, DataReceivedEventArgs e)
+        //private static readonly double baseIV = (double) 100.0f / Math.Round(15 * Math.Sqrt(15 * 15), 0);
+
+        void cmd_DataReceived(object sender, DataReceivedEventArgs e)
         {
-            //Console.WriteLine("Output from other process");
-            Console.WriteLine(e.Data);
             if ("completed".Equals(e.Data)) ((Process)sender).Close();
+
+            if (e.Data != null && e.Data.StartsWith("results:")) {
+                string[] v = e.Data.Split(':');
+
+                int pokeId = Int32.Parse(v[1]);
+                decimal latitude = Decimal.Parse(v[3]);
+                decimal longitude = Decimal.Parse(v[4]);
+                
+                if (pokeId == spawn.pokemonId 
+                    && Math.Abs(latitude - spawn.latitude) < 0.0001M
+                    && Math.Abs(longitude - spawn.longitude) < 0.0001M)
+                {
+                    int atk = Int32.Parse(v[5]);
+                    int def = Int32.Parse(v[6]);
+                    int sta = Int32.Parse(v[7]);
+
+                    int score = Pokestats.CalcAltIV(pokeId, atk, def, sta);
+                    
+                    spawn.SetIVs(v[5] + ":" + v[6] + ":" + v[7] + " [" + score + "%] " + (score >= 90 ? "**" : ""));
+
+                    PokeMoves move1 = (PokeMoves)Enum.Parse(typeof(PokeMoves), v[8]);
+                    PokeMoves move2 = (PokeMoves)Enum.Parse(typeof(PokeMoves), v[9]);
+                    spawn.SetMoves(move1 + " : " + move2);
+                }
+            }            
         }
 
-        static void cmd_Error(object sender, DataReceivedEventArgs e)
+        void cmd_Error(object sender, DataReceivedEventArgs e)
         {
-            //Console.WriteLine("Error from other process");
-            Console.WriteLine(e.Data);
+            // do nothing.
+            //Console.WriteLine(e.Data);
         }
+
+        private static readonly string username = "Papakinn";
+        private static readonly string password = "password88";
+
+        private static string getArguments(int pokeId, decimal latitude, decimal longitude)
+        {
+            string latlong = "\"" + latitude + "," + longitude + "\"";
+
+            return "del pogom.db & python runserver.py -a ptc -u " + username + " -p " + password + " -l " + latlong + " -st 1 -sd 10 -ld 5 -ns -dc -ng -nk -k dummygoogle -j -iv " + pokeId.ToString();
+        }
+
+        private static ProcessStartInfo getStartInfo(string arguments)
+        {
+            ProcessStartInfo cmdStartInfo = new ProcessStartInfo();
+            cmdStartInfo.FileName = @"C:\Windows\System32\cmd.exe";
+            cmdStartInfo.WorkingDirectory = @"E:\gitspace\Pokemon\PokeIVScanner\";
+            cmdStartInfo.RedirectStandardOutput = true;
+            cmdStartInfo.RedirectStandardError = true;
+            //cmdStartInfo.RedirectStandardInput = true;
+            cmdStartInfo.UseShellExecute = false;
+            cmdStartInfo.CreateNoWindow = true;
+            cmdStartInfo.Arguments = "/c " + arguments;
+
+            return cmdStartInfo;
+        }
+
+        
     }
 }
