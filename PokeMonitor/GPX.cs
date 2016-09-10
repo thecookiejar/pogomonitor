@@ -78,7 +78,7 @@ namespace PokeMonitor
 
         public static void SaveFile(decimal latitude, decimal longitude, string filename)
         {
-            System.IO.File.WriteAllText(@"D:\VMShare\" + filename, Generate(latitude, longitude));
+            System.IO.File.WriteAllText(Properties.Settings.Default.vmshare + filename, Generate(latitude, longitude));
         }
 
         public static void SavePokemonFile(decimal latitude, decimal longitude)

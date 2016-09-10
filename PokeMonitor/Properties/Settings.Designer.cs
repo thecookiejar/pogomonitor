@@ -22,5 +22,41 @@ namespace PokeMonitor.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("E:\\gitspace\\Pokemon\\PokeIVScanner\\")]
+        public string pogomap_dir {
+            get {
+                return ((string)(this["pogomap_dir"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Papakinn")]
+        public string username {
+            get {
+                return ((string)(this["username"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("password88")]
+        public string password {
+            get {
+                return ((string)(this["password"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\VMShare\\")]
+        public string vmshare {
+            get {
+                return ((string)(this["vmshare"]));
+            }
+        }
     }
 }

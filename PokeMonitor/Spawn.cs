@@ -21,15 +21,17 @@ namespace PokeMonitor
         private bool despawned;
 
         public string ivs = "";
-        public void SetIVs(string ivs)
+        public string moves = "";
+        public void SetEncounter(string ivs, string moves)
         {
             this.ivs = ivs;
+            this.moves = moves.ToLower();
         }
 
-        public string moves = "";
-        public void SetMoves(string moves)
+        public bool encountered = false;
+        public void EndEncounter()
         {
-            this.moves = moves.ToLower();
+            encountered = true;
         }
 
         private static readonly TimeSpan ONE_SECOND = new TimeSpan(0, 0, 0, 1);
@@ -65,7 +67,6 @@ namespace PokeMonitor
             return "http://www.bing.com/maps/default.aspx?rtp=pos." + latitude + "_" + longitude + "&lvl=12";
         }
 
-
         public delegate string DisplayString(Spawn spawn);
 
         public static DisplayString Displayer;
@@ -99,8 +100,7 @@ namespace PokeMonitor
             if (!enabled || notified) return;
 
             Pokemon poke = (Pokemon)Enum.Parse(typeof(Pokemon), pokemonId.ToString());
-
-
+            
             if (poke == Pokemon.Dragonite ||
             poke == Pokemon.Lapras ||
             poke == Pokemon.Snorlax ||
@@ -118,9 +118,18 @@ namespace PokeMonitor
 
                 Utils.Speak(poke.ToString());
                 notified = true;
-            } 
-            IVScannerPool.AddIVTask(this);
+            }
+
+            if (endLocalTime.Subtract(DateTime.Now) > ONE_MINUTE)
+            {
+                IVScannerPool.AddIVTask(this);
+            } else
+            {
+                encountered = true; // ignore this encounter
+            }
         }
+
+        private static readonly TimeSpan ONE_MINUTE = new TimeSpan(0, 0, 1, 0);
 
         // Default comparer for Part type.
         public int CompareTo(Spawn spawn)

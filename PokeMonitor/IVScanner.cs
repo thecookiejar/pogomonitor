@@ -43,7 +43,7 @@ namespace PokeMonitor
 
     class IVScanner
     {   
-        private ManualResetEvent doneEvent;
+        //private ManualResetEvent doneEvent;
         private Spawn spawn;
 
         public IVScanner(Spawn spawn)
@@ -69,7 +69,11 @@ namespace PokeMonitor
 
         void cmd_DataReceived(object sender, DataReceivedEventArgs e)
         {
-            if ("completed".Equals(e.Data)) ((Process)sender).Close();
+            if ("completed".Equals(e.Data))
+            {
+                spawn.EndEncounter();
+                ((Process)sender).Close();
+            }
 
             if (e.Data != null && e.Data.StartsWith("results:")) {
                 string[] v = e.Data.Split(':');
@@ -87,12 +91,13 @@ namespace PokeMonitor
                     int sta = Int32.Parse(v[7]);
 
                     int score = Pokestats.CalcAltIV(pokeId, atk, def, sta);
-                    
-                    spawn.SetIVs(v[5] + ":" + v[6] + ":" + v[7] + " [" + score + "%] " + (score >= 90 ? "**" : ""));
+
+                    string ivs = v[5] + ":" + v[6] + ":" + v[7] + " [" + score + "%] " + (score >= 90 ? "**" : "");
 
                     PokeMoves move1 = (PokeMoves)Enum.Parse(typeof(PokeMoves), v[8]);
                     PokeMoves move2 = (PokeMoves)Enum.Parse(typeof(PokeMoves), v[9]);
-                    spawn.SetMoves(move1 + " : " + move2);
+
+                    spawn.SetEncounter(ivs, move1 + " : " + move2);
                 }
             }            
         }
@@ -103,21 +108,22 @@ namespace PokeMonitor
             //Console.WriteLine(e.Data);
         }
 
-        private static readonly string username = "Papakinn";
-        private static readonly string password = "password88";
+        private static readonly string username = Properties.Settings.Default.username;
+        private static readonly string password = Properties.Settings.Default.password;
 
         private static string getArguments(int pokeId, decimal latitude, decimal longitude)
         {
-            string latlong = "\"" + latitude + "," + longitude + "\"";
-
-            return "del pogom.db & python runserver.py -a ptc -u " + username + " -p " + password + " -l " + latlong + " -st 1 -sd 10 -ld 5 -ns -dc -ng -nk -k dummygoogle -j -iv " + pokeId.ToString();
+            string latlong = @"""" + latitude + "," + longitude + @"""";
+            string args = "del pogom.db & python runserver.py -a ptc -u " + username + " -p " + password + " -l " + latlong + " -st 1 -sd 10 -ld 5 -ns -dc -ng -nk -k dummygoogle -j -iv " + pokeId.ToString();
+            return args;
         }
 
         private static ProcessStartInfo getStartInfo(string arguments)
         {
+            
             ProcessStartInfo cmdStartInfo = new ProcessStartInfo();
             cmdStartInfo.FileName = @"C:\Windows\System32\cmd.exe";
-            cmdStartInfo.WorkingDirectory = @"E:\gitspace\Pokemon\PokeIVScanner\";
+            cmdStartInfo.WorkingDirectory = Properties.Settings.Default.pogomap_dir;
             cmdStartInfo.RedirectStandardOutput = true;
             cmdStartInfo.RedirectStandardError = true;
             //cmdStartInfo.RedirectStandardInput = true;

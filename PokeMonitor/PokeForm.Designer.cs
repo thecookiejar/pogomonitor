@@ -42,7 +42,7 @@
             // 
             // bnMain
             // 
-            this.bnMain.Location = new System.Drawing.Point(1219, 22);
+            this.bnMain.Location = new System.Drawing.Point(835, 26);
             this.bnMain.Name = "bnMain";
             this.bnMain.Size = new System.Drawing.Size(366, 28);
             this.bnMain.TabIndex = 0;
@@ -54,8 +54,9 @@
             // 
             this.listSpawns.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listSpawns.FormattingEnabled = true;
+            this.listSpawns.HorizontalScrollbar = true;
             this.listSpawns.ItemHeight = 16;
-            this.listSpawns.Location = new System.Drawing.Point(1219, 56);
+            this.listSpawns.Location = new System.Drawing.Point(835, 60);
             this.listSpawns.Name = "listSpawns";
             this.listSpawns.Size = new System.Drawing.Size(366, 260);
             this.listSpawns.TabIndex = 1;
@@ -65,8 +66,7 @@
             // 
             // btnReset
             // 
-            this.btnReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReset.Location = new System.Drawing.Point(-116, 1);
+            this.btnReset.Location = new System.Drawing.Point(-499, 5);
             this.btnReset.MinimumSize = new System.Drawing.Size(20, 20);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(1329, 772);
@@ -74,7 +74,7 @@
             // 
             // bnReset
             // 
-            this.bnReset.Location = new System.Drawing.Point(1219, 346);
+            this.bnReset.Location = new System.Drawing.Point(835, 350);
             this.bnReset.Name = "bnReset";
             this.bnReset.Size = new System.Drawing.Size(101, 29);
             this.bnReset.TabIndex = 5;
@@ -86,7 +86,7 @@
             // 
             this.listPokedex.CheckOnClick = true;
             this.listPokedex.FormattingEnabled = true;
-            this.listPokedex.Location = new System.Drawing.Point(1219, 379);
+            this.listPokedex.Location = new System.Drawing.Point(835, 383);
             this.listPokedex.Name = "listPokedex";
             this.listPokedex.Size = new System.Drawing.Size(366, 349);
             this.listPokedex.TabIndex = 6;
@@ -96,14 +96,14 @@
             // 
             this.lblProgress.BackColor = System.Drawing.SystemColors.ControlDark;
             this.lblProgress.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblProgress.Location = new System.Drawing.Point(1219, 319);
+            this.lblProgress.Location = new System.Drawing.Point(835, 323);
             this.lblProgress.Name = "lblProgress";
             this.lblProgress.Size = new System.Drawing.Size(366, 23);
             this.lblProgress.TabIndex = 7;
             // 
             // bnClear
             // 
-            this.bnClear.Location = new System.Drawing.Point(1421, 346);
+            this.bnClear.Location = new System.Drawing.Point(1037, 350);
             this.bnClear.Name = "bnClear";
             this.bnClear.Size = new System.Drawing.Size(68, 29);
             this.bnClear.TabIndex = 8;
@@ -113,7 +113,7 @@
             // 
             // bnMissing
             // 
-            this.bnMissing.Location = new System.Drawing.Point(1326, 346);
+            this.bnMissing.Location = new System.Drawing.Point(942, 350);
             this.bnMissing.Name = "bnMissing";
             this.bnMissing.Size = new System.Drawing.Size(89, 29);
             this.bnMissing.TabIndex = 9;
@@ -123,7 +123,7 @@
             // 
             // btnGPX
             // 
-            this.btnGPX.Location = new System.Drawing.Point(1323, 734);
+            this.btnGPX.Location = new System.Drawing.Point(939, 738);
             this.btnGPX.Name = "btnGPX";
             this.btnGPX.Size = new System.Drawing.Size(166, 39);
             this.btnGPX.TabIndex = 10;
@@ -134,7 +134,7 @@
             // cbxNotification
             // 
             this.cbxNotification.AutoSize = true;
-            this.cbxNotification.Location = new System.Drawing.Point(1219, 1);
+            this.cbxNotification.Location = new System.Drawing.Point(835, 5);
             this.cbxNotification.Name = "cbxNotification";
             this.cbxNotification.Size = new System.Drawing.Size(115, 17);
             this.cbxNotification.TabIndex = 11;
@@ -146,7 +146,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1597, 785);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(1205, 785);
             this.Controls.Add(this.cbxNotification);
             this.Controls.Add(this.btnGPX);
             this.Controls.Add(this.bnMissing);

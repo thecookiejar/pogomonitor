@@ -1,5 +1,18 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PokeMonitor.Properties" GeneratedClassName="Settings">
   <Profiles />
-  <Settings />
+  <Settings>
+    <Setting Name="pogomap_dir" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">E:\gitspace\Pokemon\PokeIVScanner\</Value>
+    </Setting>
+    <Setting Name="username" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Papakinn</Value>
+    </Setting>
+    <Setting Name="password" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">password88</Value>
+    </Setting>
+    <Setting Name="vmshare" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">D:\VMShare\</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>
