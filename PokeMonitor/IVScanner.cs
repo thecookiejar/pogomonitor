@@ -8,36 +8,54 @@ namespace PokeMonitor
 {
     public class IVScannerPool
     {
-        static IVScannerPool()
-        {
-            ThreadPool.SetMaxThreads(1, 1);
-        }
+        static Object locker = new object();
 
         private static readonly List<IVScanner> manager = new List<IVScanner>();
 
-        public static void AddIVTask(Spawn spawn)
+        static IVScannerPool()
         {
-            manager.Add(new IVScanner(spawn));
+            //ThreadPool.SetMaxThreads(1, 1);
+        }
 
-            if (manager.Count == 1)
+        private static void push(IVScanner scanner)
+        {
+            lock(locker)
             {
-                ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadProc), manager[0]);
+                manager.Add(scanner);
+
+                if (manager.Count == 1)
+                {
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadProc), manager[0]);
+                }
+            }
+        }
+
+        private static void pop(IVScanner scanner)
+        {
+            lock (locker)
+            {
+                manager.Remove(scanner);
+                if (manager.Count > 0)
+                {
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadProc), manager[0]);
+                }
             }
 
+        }
+
+        public static void AddIVTask(Spawn spawn)
+        {
+            push(new IVScanner(spawn));
         }
 
         // Wrapper method for use with thread pool.
         static void ThreadProc(Object stateInfo)
         {
+            //Console.WriteLine("..... chceking iv");
             IVScanner scanner = (IVScanner)stateInfo;
             scanner.CheckIV();
-            Thread.Sleep(1000);
-            manager.Remove(scanner);
-            if (manager.Count > 0)
-            {
-                ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadProc), manager[0]);
-            }
-
+            Thread.Sleep(500);
+            pop(scanner);
         }
     }
 
@@ -53,16 +71,19 @@ namespace PokeMonitor
 
         public void CheckIV()
         {
-            Process cmdProcess = new Process();
-            cmdProcess.StartInfo = getStartInfo(getArguments(spawn.pokemonId, spawn.latitude, spawn.longitude));
-            cmdProcess.ErrorDataReceived += cmd_Error;
-            cmdProcess.OutputDataReceived += cmd_DataReceived;
-            cmdProcess.EnableRaisingEvents = true;
+            if (!spawn.isDespawned())
+            {
+                Process cmdProcess = new Process();
+                cmdProcess.StartInfo = getStartInfo(getArguments(spawn.pokemonId, spawn.latitude, spawn.longitude));
+                cmdProcess.ErrorDataReceived += cmd_Error;
+                cmdProcess.OutputDataReceived += cmd_DataReceived;
+                cmdProcess.EnableRaisingEvents = true;
 
-            cmdProcess.Start();
-            cmdProcess.BeginOutputReadLine();
-            cmdProcess.BeginErrorReadLine();
-            cmdProcess.WaitForExit();
+                cmdProcess.Start();
+                cmdProcess.BeginOutputReadLine();
+                cmdProcess.BeginErrorReadLine();
+                cmdProcess.WaitForExit();
+            }
         }
         
         //private static readonly double baseIV = (double) 100.0f / Math.Round(15 * Math.Sqrt(15 * 15), 0);
@@ -115,6 +136,7 @@ namespace PokeMonitor
         {
             string latlong = @"""" + latitude + "," + longitude + @"""";
             string args = "del pogom.db & python runserver.py -a ptc -u " + username + " -p " + password + " -l " + latlong + " -st 1 -sd 10 -ld 5 -ns -dc -ng -nk -k dummygoogle -j -iv " + pokeId.ToString();
+            //Console.WriteLine(args);
             return args;
         }
 

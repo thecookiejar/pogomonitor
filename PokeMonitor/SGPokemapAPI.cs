@@ -79,10 +79,10 @@ namespace PokeMonitor
                         spawn.pokemonId = pokemonId;
 
                         decimal rawLatitude = Decimal.Parse(result.GetValue("lat").ToString());
-                        //decimal offset = estimateOffset(rawLatitude);
+                        decimal offset = estimateOffset(rawLatitude);
 
-                        spawn.latitude = rawLatitude; // - offset;
-                        spawn.longitude = Decimal.Parse(result.GetValue("lng").ToString()); // - offset;
+                        spawn.latitude = rawLatitude - offset;
+                        spawn.longitude = Decimal.Parse(result.GetValue("lng").ToString()) - offset;
 
                         spawn.endLocalTime = Utils.UnixToLocalDateTime(Int64.Parse(result.GetValue("despawn").ToString()));
 

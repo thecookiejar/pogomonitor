@@ -272,10 +272,6 @@ namespace PokeMonitor
             enableNotification = cbxNotification.Checked;
         }
 
-        private void listSpawns_Enter(object sender, EventArgs e)
-        {
-            //MessageBox.Show("hello");
-        }
 
         //private static readonly string[] delims = { "!4d" };
 

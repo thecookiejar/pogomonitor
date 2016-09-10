@@ -61,7 +61,6 @@
             this.listSpawns.Size = new System.Drawing.Size(366, 260);
             this.listSpawns.TabIndex = 1;
             this.listSpawns.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pokeList_MouseClick);
-            this.listSpawns.Enter += new System.EventHandler(this.listSpawns_Enter);
             this.listSpawns.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pokeList_MouseDoubleClick);
             // 
             // btnReset
