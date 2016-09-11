@@ -21,11 +21,32 @@ namespace PokeMonitor
         private bool despawned;
 
         public string ivs = "";
+        public int score = -1;
         public string moves = "";
-        public void SetEncounter(string ivs, string moves)
+        public void SetEncounter(string ivs, int move1, int move2, int score)
         {
             this.ivs = ivs;
             this.moves = moves.ToLower();
+            this.score = score;
+
+            PokeMoves m1 = (PokeMoves)Enum.Parse(typeof(PokeMoves), move1.ToString());
+            PokeMoves m2 = (PokeMoves)Enum.Parse(typeof(PokeMoves), move2.ToString());
+            moves = "[" + PokemovesEval.Grade(pokemonId, move1, move2) + "] " + m1 + ":" + m2;
+            
+            if (score >= 90)
+            {
+                Pokemon poke = (Pokemon)Enum.Parse(typeof(Pokemon), pokemonId.ToString());
+                Utils.Speak(poke.ToString());
+            }            
+        }
+
+        public string Prefix()
+        {
+            if (!encountered) return "? ";
+
+            if (score >= 90) return "*** ";
+
+            return score >= 75 ? "+ " : "";
         }
 
         public bool encountered = false;
@@ -99,26 +120,26 @@ namespace PokeMonitor
         {
             if (!enabled || notified) return;
 
-            Pokemon poke = (Pokemon)Enum.Parse(typeof(Pokemon), pokemonId.ToString());
-            
-            if (poke == Pokemon.Dragonite ||
-            poke == Pokemon.Lapras ||
-            poke == Pokemon.Snorlax ||
-            poke == Pokemon.Charizard ||
-            poke == Pokemon.Arcanine ||
-            poke == Pokemon.Poliwrath)
-            {
-                //DateTime now = DateTime.Now;
-                //if (now.Subtract(lastNotify) > ONE_MINUTE)
-                //{
-                //    lastNotify = now;
-                //new SoundPlayer(@"c:\Windows\Media\Alarm07.wav").Play();
-                //Utils.Speak(poke.ToString());
-                //}
+            //Pokemon poke = (Pokemon)Enum.Parse(typeof(Pokemon), pokemonId.ToString());
 
-                Utils.Speak(poke.ToString());
-                notified = true;
-            }
+            //if (poke == Pokemon.Dragonite ||
+            //    poke == Pokemon.Lapras ||
+            //    poke == Pokemon.Snorlax ||
+            //    poke == Pokemon.Charizard ||
+            //    poke == Pokemon.Arcanine ||
+            //    poke == Pokemon.Poliwrath)
+            //{
+            //    //DateTime now = DateTime.Now;
+            //    //if (now.Subtract(lastNotify) > ONE_MINUTE)
+            //    //{
+            //    //    lastNotify = now;
+            //    //new SoundPlayer(@"c:\Windows\Media\Alarm07.wav").Play();
+            //    //Utils.Speak(poke.ToString());
+            //    //}
+
+            //    Utils.Speak(poke.ToString());
+            notified = true;
+            //}
 
             if (endLocalTime.Subtract(DateTime.Now) > ONE_MINUTE)
             {

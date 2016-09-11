@@ -58,5 +58,17 @@ namespace PokeMonitor.Properties {
                 return ((string)(this["vmshare"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool pogomap_offset {
+            get {
+                return ((bool)(this["pogomap_offset"]));
+            }
+            set {
+                this["pogomap_offset"] = value;
+            }
+        }
     }
 }

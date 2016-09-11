@@ -30,23 +30,33 @@ namespace PokeMonitor
             Pokemon.Vaporeon,
             Pokemon.Jolteon,
 
-            Pokemon.Gengar,
-            Pokemon.Gyarados,
 
         };
 
-        private static List<Pokemon> missing = new List<Pokemon>
+        private static List<Pokemon> others = new List<Pokemon>
         {
-            Pokemon.Wigglytuff,
-            Pokemon.Clefable,
-            Pokemon.Kabutops,
+            Pokemon.Gengar,
+            Pokemon.Gyarados,
+            Pokemon.Raichu,
+            Pokemon.Victreebel,
+            Pokemon.Muk,
+            Pokemon.Golem,
+
             Pokemon.Alakazam,
             Pokemon.Machamp,
 
-            Pokemon.Farfetched,
-            Pokemon.Kangaskhan,
-            Pokemon.MrMime,
-            Pokemon.Tauros,
+            //Pokemon.Golduck,
+
+            //Pokemon.Cloyster,
+            //Pokemon.Chansey,
+            //Pokemon.Aerodactyl,
+            //Pokemon.Nidoking,
+            //Pokemon.Nidoqueen,
+
+            //Pokemon.Farfetched,
+            //Pokemon.Kangaskhan,
+            //Pokemon.MrMime,
+            //Pokemon.Tauros,
 
             //Pokemon.Ditto,
             //Pokemon.Mew,
@@ -76,6 +86,7 @@ namespace PokeMonitor
 
             cbxNotification.Checked = enableNotification;
 
+            SGPokemapAPI.HAS_OFFSET = cbxSGMapOffset.Checked = Properties.Settings.Default.pogomap_offset;
         }
         
         private void buildPokeList()
@@ -86,11 +97,11 @@ namespace PokeMonitor
             }
         }
 
-        private void bnMissing_Click(object sender, EventArgs e)
+        private void bnOthers_Click(object sender, EventArgs e)
         {
             for (int c = 0; c < listPokedex.Items.Count; c++)
             {
-                listPokedex.SetItemChecked(c, listPokedex.GetItemChecked(c) || missing.Contains((Pokemon)listPokedex.Items[c]));
+                listPokedex.SetItemChecked(c, listPokedex.GetItemChecked(c) || others.Contains((Pokemon)listPokedex.Items[c]));
             }
         }
 
@@ -160,7 +171,7 @@ namespace PokeMonitor
         private bool updateUI(bool isReady)
         {
             bnMain.Text = isReady ? "Start" : "Cancel";
-            bnReset.Enabled = bnMissing.Enabled = bnClear.Enabled = isReady;
+            bnReset.Enabled = bnOthers.Enabled = bnClear.Enabled = isReady;
             listPokedex.SelectionMode = isReady ? SelectionMode.One : SelectionMode.None;
 
             return isReady;
@@ -270,6 +281,12 @@ namespace PokeMonitor
         private void cbxNotification_CheckedChanged(object sender, EventArgs e)
         {
             enableNotification = cbxNotification.Checked;
+        }
+
+        private void cbxSGMapToggle_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.pogomap_offset = SGPokemapAPI.HAS_OFFSET = cbxSGMapOffset.Checked;
+            Properties.Settings.Default.Save();
         }
 
 

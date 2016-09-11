@@ -113,12 +113,10 @@ namespace PokeMonitor
 
                     int score = Pokestats.CalcAltIV(pokeId, atk, def, sta);
 
-                    string ivs = v[5] + ":" + v[6] + ":" + v[7] + " [" + score + "%] " + (score >= 90 ? "**" : "");
+                    string ivs = v[5] + ":" + v[6] + ":" + v[7] + " [" + score + "%] ";
 
-                    PokeMoves move1 = (PokeMoves)Enum.Parse(typeof(PokeMoves), v[8]);
-                    PokeMoves move2 = (PokeMoves)Enum.Parse(typeof(PokeMoves), v[9]);
 
-                    spawn.SetEncounter(ivs, move1 + " : " + move2);
+                    spawn.SetEncounter(ivs, Int32.Parse(v[8]), Int32.Parse(v[9]), score);
                 }
             }            
         }

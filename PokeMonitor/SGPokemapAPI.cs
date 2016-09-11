@@ -10,6 +10,8 @@ namespace PokeMonitor
 {
     class SGPokemapAPI : IPokeAPI
     {
+        public static bool HAS_OFFSET = true;
+
         private readonly string baseURI = "http://sgpokemap.com/query.php?since=";
         
         private readonly string requestURI;
@@ -79,7 +81,7 @@ namespace PokeMonitor
                         spawn.pokemonId = pokemonId;
 
                         decimal rawLatitude = Decimal.Parse(result.GetValue("lat").ToString());
-                        decimal offset = estimateOffset(rawLatitude);
+                        decimal offset = HAS_OFFSET ? estimateOffset(rawLatitude) : 0;
 
                         spawn.latitude = rawLatitude - offset;
                         spawn.longitude = Decimal.Parse(result.GetValue("lng").ToString()) - offset;
@@ -148,7 +150,7 @@ namespace PokeMonitor
         public static string Displayer(Spawn spawn)
         {
             Pokemon poke = (Pokemon)Enum.ToObject(typeof(Pokemon), spawn.pokemonId);
-            return (spawn.encountered ? "" : "+") + poke.ToString() + " (" + spawn.TimeLeft() + ") " + spawn.ivs + " " + spawn.moves;
+            return spawn.Prefix() + poke.ToString() + " (" + spawn.TimeLeft() + ") " + spawn.ivs + " " + spawn.moves;
         }
         
     }

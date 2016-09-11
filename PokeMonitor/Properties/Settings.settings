@@ -14,5 +14,8 @@
     <Setting Name="vmshare" Type="System.String" Scope="Application">
       <Value Profile="(Default)">D:\VMShare\</Value>
     </Setting>
+    <Setting Name="pogomap_offset" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
