@@ -133,7 +133,9 @@ namespace PokeMonitor
         private static string getArguments(int pokeId, decimal latitude, decimal longitude)
         {
             string latlong = @"""" + latitude + "," + longitude + @"""";
-            string args = "del pogom.db & python runserver.py -a ptc -u " + username + " -p " + password + " -l " + latlong + " -st 1 -sd 10 -ld 5 -ns -dc -ng -nk -k dummygoogle -j -iv " + pokeId.ToString();
+
+            string args = "del pogom.db & python runserver.py -a ptc -u " + username + " -p " + password + " -l " + latlong + " -st 1 -sd " +
+                Properties.Settings.Default.pgo_scan_delay + " -ld " + Properties.Settings.Default.pgo_login_delay + " -ns -dc -ng -nk -k dummygoogle -j -iv " + pokeId.ToString();
             //Console.WriteLine(args);
             return args;
         }

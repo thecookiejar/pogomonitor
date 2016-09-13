@@ -39,11 +39,12 @@
             this.btnGPX = new System.Windows.Forms.Button();
             this.cbxNotification = new System.Windows.Forms.CheckBox();
             this.cbxSGMapOffset = new System.Windows.Forms.CheckBox();
+            this.cbIVThreshold = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // bnMain
             // 
-            this.bnMain.Location = new System.Drawing.Point(822, 26);
+            this.bnMain.Location = new System.Drawing.Point(767, 26);
             this.bnMain.Name = "bnMain";
             this.bnMain.Size = new System.Drawing.Size(466, 28);
             this.bnMain.TabIndex = 0;
@@ -57,9 +58,9 @@
             this.listSpawns.FormattingEnabled = true;
             this.listSpawns.HorizontalScrollbar = true;
             this.listSpawns.ItemHeight = 15;
-            this.listSpawns.Location = new System.Drawing.Point(822, 60);
+            this.listSpawns.Location = new System.Drawing.Point(767, 60);
             this.listSpawns.Name = "listSpawns";
-            this.listSpawns.Size = new System.Drawing.Size(466, 259);
+            this.listSpawns.Size = new System.Drawing.Size(466, 409);
             this.listSpawns.TabIndex = 1;
             this.listSpawns.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pokeList_MouseClick);
             this.listSpawns.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pokeList_MouseDoubleClick);
@@ -69,14 +70,14 @@
             this.btnReset.Location = new System.Drawing.Point(-499, 5);
             this.btnReset.MinimumSize = new System.Drawing.Size(20, 20);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(1315, 772);
+            this.btnReset.Size = new System.Drawing.Size(1260, 715);
             this.btnReset.TabIndex = 2;
             // 
             // bnReset
             // 
-            this.bnReset.Location = new System.Drawing.Point(824, 348);
+            this.bnReset.Location = new System.Drawing.Point(772, 501);
             this.bnReset.Name = "bnReset";
-            this.bnReset.Size = new System.Drawing.Size(101, 29);
+            this.bnReset.Size = new System.Drawing.Size(73, 29);
             this.bnReset.TabIndex = 5;
             this.bnReset.Text = "Reset";
             this.bnReset.UseVisualStyleBackColor = true;
@@ -86,9 +87,9 @@
             // 
             this.listPokedex.CheckOnClick = true;
             this.listPokedex.FormattingEnabled = true;
-            this.listPokedex.Location = new System.Drawing.Point(825, 382);
+            this.listPokedex.Location = new System.Drawing.Point(769, 536);
             this.listPokedex.Name = "listPokedex";
-            this.listPokedex.Size = new System.Drawing.Size(463, 349);
+            this.listPokedex.Size = new System.Drawing.Size(463, 184);
             this.listPokedex.TabIndex = 6;
             this.listPokedex.SelectedIndexChanged += new System.EventHandler(this.listPokedex_SelectedIndexChanged);
             // 
@@ -96,16 +97,16 @@
             // 
             this.lblProgress.BackColor = System.Drawing.SystemColors.ControlDark;
             this.lblProgress.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblProgress.Location = new System.Drawing.Point(822, 322);
+            this.lblProgress.Location = new System.Drawing.Point(769, 475);
             this.lblProgress.Name = "lblProgress";
             this.lblProgress.Size = new System.Drawing.Size(466, 23);
             this.lblProgress.TabIndex = 7;
             // 
             // bnClear
             // 
-            this.bnClear.Location = new System.Drawing.Point(1026, 348);
+            this.bnClear.Location = new System.Drawing.Point(930, 501);
             this.bnClear.Name = "bnClear";
-            this.bnClear.Size = new System.Drawing.Size(68, 29);
+            this.bnClear.Size = new System.Drawing.Size(73, 29);
             this.bnClear.TabIndex = 8;
             this.bnClear.Text = "Clear";
             this.bnClear.UseVisualStyleBackColor = true;
@@ -113,9 +114,9 @@
             // 
             // bnOthers
             // 
-            this.bnOthers.Location = new System.Drawing.Point(931, 348);
+            this.bnOthers.Location = new System.Drawing.Point(851, 501);
             this.bnOthers.Name = "bnOthers";
-            this.bnOthers.Size = new System.Drawing.Size(89, 29);
+            this.bnOthers.Size = new System.Drawing.Size(73, 29);
             this.bnOthers.TabIndex = 9;
             this.bnOthers.Text = "Others";
             this.bnOthers.UseVisualStyleBackColor = true;
@@ -123,9 +124,9 @@
             // 
             // btnGPX
             // 
-            this.btnGPX.Location = new System.Drawing.Point(825, 737);
+            this.btnGPX.Location = new System.Drawing.Point(1122, 501);
             this.btnGPX.Name = "btnGPX";
-            this.btnGPX.Size = new System.Drawing.Size(166, 39);
+            this.btnGPX.Size = new System.Drawing.Size(110, 29);
             this.btnGPX.TabIndex = 10;
             this.btnGPX.Text = "Generate GPX";
             this.btnGPX.UseVisualStyleBackColor = true;
@@ -134,7 +135,7 @@
             // cbxNotification
             // 
             this.cbxNotification.AutoSize = true;
-            this.cbxNotification.Location = new System.Drawing.Point(822, 5);
+            this.cbxNotification.Location = new System.Drawing.Point(767, 5);
             this.cbxNotification.Name = "cbxNotification";
             this.cbxNotification.Size = new System.Drawing.Size(115, 17);
             this.cbxNotification.TabIndex = 11;
@@ -147,7 +148,7 @@
             this.cbxSGMapOffset.AutoSize = true;
             this.cbxSGMapOffset.Checked = true;
             this.cbxSGMapOffset.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxSGMapOffset.Location = new System.Drawing.Point(953, 5);
+            this.cbxSGMapOffset.Location = new System.Drawing.Point(1009, 5);
             this.cbxSGMapOffset.Name = "cbxSGMapOffset";
             this.cbxSGMapOffset.Size = new System.Drawing.Size(115, 17);
             this.cbxSGMapOffset.TabIndex = 12;
@@ -155,12 +156,24 @@
             this.cbxSGMapOffset.UseVisualStyleBackColor = true;
             this.cbxSGMapOffset.CheckedChanged += new System.EventHandler(this.cbxSGMapToggle_CheckedChanged);
             // 
+            // cbIVThreshold
+            // 
+            this.cbIVThreshold.AutoSize = true;
+            this.cbIVThreshold.Location = new System.Drawing.Point(888, 5);
+            this.cbIVThreshold.Name = "cbIVThreshold";
+            this.cbIVThreshold.Size = new System.Drawing.Size(115, 17);
+            this.cbIVThreshold.TabIndex = 13;
+            this.cbIVThreshold.Text = "IV Threshold (75%)";
+            this.cbIVThreshold.UseVisualStyleBackColor = true;
+            this.cbIVThreshold.CheckedChanged += new System.EventHandler(this.cbIVThreshold_CheckedChanged);
+            // 
             // PokeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1292, 785);
+            this.ClientSize = new System.Drawing.Size(1237, 724);
+            this.Controls.Add(this.cbIVThreshold);
             this.Controls.Add(this.cbxSGMapOffset);
             this.Controls.Add(this.cbxNotification);
             this.Controls.Add(this.btnGPX);
@@ -194,6 +207,7 @@
         private System.Windows.Forms.Button btnGPX;
         private System.Windows.Forms.CheckBox cbxNotification;
         private System.Windows.Forms.CheckBox cbxSGMapOffset;
+        private System.Windows.Forms.CheckBox cbIVThreshold;
     }
 }
 

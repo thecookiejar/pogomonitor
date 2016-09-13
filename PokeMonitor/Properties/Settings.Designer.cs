@@ -70,5 +70,44 @@ namespace PokeMonitor.Properties {
                 this["pogomap_offset"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int pgo_login_delay {
+            get {
+                return ((int)(this["pgo_login_delay"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int pgo_scan_delay {
+            get {
+                return ((int)(this["pgo_scan_delay"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool iv_threshold {
+            get {
+                return ((bool)(this["iv_threshold"]));
+            }
+            set {
+                this["iv_threshold"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool audio_notification {
+            get {
+                return ((bool)(this["audio_notification"]));
+            }
+        }
     }
 }

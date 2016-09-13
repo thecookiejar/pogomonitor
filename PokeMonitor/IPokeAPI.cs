@@ -10,7 +10,7 @@ namespace PokeMonitor
     {
         void EnableDirectGPX(IUserInterface form);
         int SleepTimer();
-        Spawn[] RequestPokemon(int pokeId);
+        Spawn[] RequestPokemon(int pokeId, string mons);
         void PokeFilterCount(int count);
     }
 }

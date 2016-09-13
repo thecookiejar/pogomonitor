@@ -59,6 +59,13 @@ namespace PokeMonitor
 
             int index = 0;
 
+            string mons = "";
+            foreach (Pokemon p in filter)
+            {
+                mons += (int)p + ",";
+            }
+
+
             while (true)
             {
                 if ((worker.CancellationPending == true))
@@ -71,7 +78,7 @@ namespace PokeMonitor
                     Result results = new Result();
 
                     results.current = (Pokemon)Enum.ToObject(typeof(Pokemon), filter[index]);
-                    results.spawns = api.RequestPokemon((int) results.current);
+                    results.spawns = api.RequestPokemon((int)results.current, mons);
 
                     if (++index >= filter.Count) index = 0;
                     results.next = (Pokemon)Enum.ToObject(typeof(Pokemon), filter[index]);

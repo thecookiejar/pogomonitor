@@ -36,7 +36,7 @@ namespace PokeMonitor
             if (score >= 90)
             {
                 Pokemon poke = (Pokemon)Enum.Parse(typeof(Pokemon), pokemonId.ToString());
-                Utils.Speak(poke.ToString());
+                if (Properties.Settings.Default.audio_notification) Utils.Speak(poke.ToString());
             }            
         }
 
@@ -65,6 +65,15 @@ namespace PokeMonitor
                 despawned = despawned || diff < ONE_SECOND;
             }
             return despawned;
+        }
+
+        public bool isAboveIVThreshold(int threshold)
+        {
+            if (!encountered) return true;
+
+            if (score >= threshold) return true;
+
+            return false;
         }
 
         public string TimeLeft()

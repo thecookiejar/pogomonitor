@@ -44,7 +44,6 @@ namespace PokeMonitor
 
             Pokemon.Alakazam,
             Pokemon.Machamp,
-
             //Pokemon.Golduck,
 
             //Pokemon.Cloyster,
@@ -87,6 +86,8 @@ namespace PokeMonitor
             cbxNotification.Checked = enableNotification;
 
             SGPokemapAPI.HAS_OFFSET = cbxSGMapOffset.Checked = Properties.Settings.Default.pogomap_offset;
+
+            cbIVThreshold.Checked = Properties.Settings.Default.iv_threshold;
         }
         
         private void buildPokeList()
@@ -184,13 +185,13 @@ namespace PokeMonitor
             // remove old pokemons
             for (int c = spawns.Count - 1; c >= 0; c--)
             {
-                if (spawns[c].pokemonId == currpokeId && spawns[c].isDespawned()) spawns.Remove(spawns[c]);
+                if (spawns[c].isDespawned()) spawns.Remove(spawns[c]);
             }
 
             // insert current pokemons 
             foreach (Spawn spawn in results.spawns)
             {   
-                if (!spawns.Contains(spawn) && !spawn.isDespawned())
+                if (!spawns.Contains(spawn) && !spawn.isDespawned() && spawn.isAboveIVThreshold(cbIVThreshold.Checked ? 0 : 0))
                 {
                     spawns.Insert(0, spawn);
                     spawn.Notify(enableNotification);
@@ -289,6 +290,11 @@ namespace PokeMonitor
             Properties.Settings.Default.Save();
         }
 
+        private void cbIVThreshold_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.iv_threshold = cbIVThreshold.Checked;
+            Properties.Settings.Default.Save();
+        }
 
         //private static readonly string[] delims = { "!4d" };
 

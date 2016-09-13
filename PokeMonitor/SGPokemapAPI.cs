@@ -12,7 +12,7 @@ namespace PokeMonitor
     {
         public static bool HAS_OFFSET = true;
 
-        private readonly string baseURI = "http://sgpokemap.com/query.php?since=";
+        private readonly string baseURI = "https://sgpokemap.com/query2.php?since=";
         
         private readonly string requestURI;
 
@@ -37,7 +37,7 @@ namespace PokeMonitor
         private int interval;
         private long lastSinceTime = 0;
 
-        public Spawn[] RequestPokemon(int pokeId)
+        public Spawn[] RequestPokemon(int pokeId, string mons)
         {
             List<Spawn> pokemons = new List<Spawn>();
             try
@@ -47,8 +47,15 @@ namespace PokeMonitor
 
                 if (sinceTime - lastSinceTime > interval)
                 {
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestURI + sinceTime);
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestURI + sinceTime + "&mons=" + mons);
                     request.AutomaticDecompression = DecompressionMethods.GZip;
+                    request.Host = "sgpokemap.com";
+                    request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0";
+                    request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+                    //request.Connection = "keep-alive";
+                    request.Referer = "https://sgpokemap.com/query2.php?since=0&mons=" + mons;
+                    request.Headers.Add("Accept-Language", "en-US,en;q=0.5");
+                    request.Headers.Add("X-Requested-With", "XMLHttpRequest");
 
                     using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                     using (Stream stream = response.GetResponseStream())
@@ -124,7 +131,7 @@ namespace PokeMonitor
         public void PokeFilterCount(int count)
         {
             //this.numberOfPokemons = count;
-            interval = 120; // 120 seconds
+            interval = 60; // 60 seconds
         }
 
         public int SleepTimer()
