@@ -94,7 +94,7 @@ namespace PokeMonitor
         
         public string BingMap()
         {
-            return "http://www.bing.com/maps/default.aspx?rtp=pos." + latitude + "_" + longitude + "&lvl=12";
+            return "http://www.bing.com/maps/default.aspx?cp=" + latitude + "~" + longitude + "&rtp=pos." + latitude + "_" + longitude + "&lvl=12";
         }
 
         public delegate string DisplayString(Spawn spawn);
